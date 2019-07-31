@@ -15,7 +15,7 @@ else {
     element = `
     <div class="df-layout">
         <iframe class="df-modal df-modal-reset" src="https://${config.project}.ui.dialogflow.cloud.ushakov.co"></iframe>
-        <div class="df-btn" onclick="dfToggle()">${config.openText || 'Open'}</div>
+        <div class="df-btn" onclick="dfToggle()">${config.openText || 'Chat'}</div>
     </div>
     <style>
         .df-layout {
@@ -134,7 +134,7 @@ else {
         let dfToggle = () => {
             document.querySelector('.df-modal').classList = dfToggled ? 'df-modal df-modal-hidden' : 'df-modal df-modal-visible'
             document.querySelector('.df-btn').classList = dfToggled ? 'df-btn' : 'df-btn df-expanded df-btn-close'
-            document.querySelector('.df-btn').innerText = dfToggled ? '${config.openText}' : '${config.closeText}'
+            document.querySelector('.df-btn').innerText = dfToggled ? '${config.openText || 'Chat'}' : '${config.closeText || 'Close'}'
             dfToggled = !dfToggled
         }
         </script>
