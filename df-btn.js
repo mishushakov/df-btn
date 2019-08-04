@@ -23,6 +23,7 @@ else {
             bottom: 0;
             right: 0;
             margin: 24px;
+            z-index: 999;
         }
 
         @keyframes show {
