@@ -26,7 +26,8 @@ else {
         right: 0px;
         margin: 16px;
         display: flex;
-        flex-direction: column
+        flex-direction: column;
+        z-index: 999
     }
 
     .df-btn-text {
