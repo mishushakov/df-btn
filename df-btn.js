@@ -1,5 +1,5 @@
-let wrapper = document.querySelector('#df-btn')
-let config = {
+const wrapper = document.querySelector('#df-btn')
+const config = {
     project: wrapper.getAttribute('project'),
     width: wrapper.getAttribute('width'),
     height: wrapper.getAttribute('height'),
@@ -12,133 +12,131 @@ if (!config.project){
 }
 
 else {
-    element = `
-    <div class="df-layout">
-        <iframe class="df-modal df-modal-reset" src="https://${config.project}.ui.dialogflow.cloud.ushakov.co"></iframe>
-        <div class="df-btn" onclick="dfToggle()">${config.openText || 'Chat'}</div>
-    </div>
-    <style>
-        .df-layout {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            margin: 24px;
-            z-index: 999;
-        }
+    const style = document.createElement('style')
+    style.innerHTML = `
+    .df-btn {
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
+        font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: #fff;
+        border-radius: 24px;
+        cursor: pointer;
+        transition: all .08s linear;
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        margin: 16px;
+        display: flex;
+        flex-direction: column
+    }
 
-        @keyframes show {
-            0% {
-                height: 0px;
-                width: 0px;
-                opacity: 0;
-            }
+    .df-btn-text {
+        min-width: 56px;
+        color: #3c4043;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
+        letter-spacing: .25px;
+        transition: all .08s linear;
+        padding: 0 24px 0 0;
+        font-size: .875rem;
+        height: 48px
+    }
 
-            100% {
-                height: ${config.height || '500px'};
-                width: ${config.width || '320px'};
-                opacity: 1;
-            }
-        }
+    .df-btn-text:before {
+        min-width: 56px;
+        height: 48px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjVweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMjUgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU1LjEgKDc4MTM2KSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5wYXRoLTE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjMuNzkzMjMwOCw2LjIyMjc2OTIzIEwxMy41MTM4NDYyLDAuMjkwNDYxNTM4IEMxMi44NDkyMzA4LC0wLjA5MzUzODQ2MTUgMTIuMDIyMTUzOCwtMC4wOTM1Mzg0NjE1IDExLjM1NzUzODUsMC4yOTA0NjE1MzggTDEuMDc4MTUzODUsNi4yMjI3NjkyMyBDMC40MTM1Mzg0NjIsNi42MTE2OTIzMSAwLjAwNDkyMzA3NjkyLDcuMzIwNjE1MzggMC4wMDQ5MjMwNzY5Miw4LjA5MzUzODQ2IEwwLjAwNDkyMzA3NjkyLDE5Ljk2OCBDMC4wMDQ5MjMwNzY5MiwyMC43MzYgMC40MTM1Mzg0NjIsMjEuNDQ0OTIzMSAxLjA3ODE1Mzg1LDIxLjgzMzg0NjIgTDYuMjIyNzY5MjMsMjQuODA3Mzg0NiBMNi4yMjI3NjkyMywzMC44Njc2OTIzIEM2LjIyMjc2OTIzLDMxLjIyNzA3NjkgNi41MTMyMzA3NywzMS41MTI2MTU0IDYuODcyNjE1MzgsMzEuNTEyNjE1NCBDNi45ODU4NDYxNSwzMS41MTI2MTU0IDcuMDk0MTUzODUsMzEuNDgzMDc2OSA3LjE5MjYxNTM4LDMxLjQyNCBMMjMuODA4LDIxLjgzODc2OTIgQzI0LjQ3MjYxNTQsMjEuNDU0NzY5MiAyNC44ODYxNTM4LDIwLjc0NTg0NjIgMjQuODgxMzE2OSwxOS45NzI5MjMxIEwyNC44ODEzMTY5LDguMDkzNTM4NDYgQzI0Ljg3NjMwNzcsNy4zMTU2OTIzMSAyNC40NjI3NjkyLDYuNjA2NzY5MjMgMjMuNzkzMjMwOCw2LjIyMjc2OTIzIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJsb2dvIj4KICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8dXNlIGlkPSJwYXRoLTEiIGZpbGw9IiMwMDAwMDAiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+');
+        content: ''
+    }
 
-        @keyframes hide {
-            0% {
-                height: ${config.height || '500px'};
-                width: ${config.width || '320px'};
-                opacity: 1;
-            }
+    .df-btn:hover {
+        box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149)
+    }
 
-            100% {
-                height: 0px;
-                width: 0px;
-                opacity: 0;
-            }
-        }
+    .df-btn:not(.df-closed){
+        border-radius: 16px
+    }
 
-        .df-modal {
-            border: 0;
-            padding: 8px;
-            border-radius: 16px;
-            background-color: white;
-            height: ${config.height || '500px'};
-            width: ${config.width || '320px'};
-            box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2);
-            display: block;
-        }
+    .df-btn:not(.df-closed) > .df-btn-text:before {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTguMyA1LjcxYy0uMzktLjM5LTEuMDItLjM5LTEuNDEgMEwxMiAxMC41OSA3LjExIDUuN2MtLjM5LS4zOS0xLjAyLS4zOS0xLjQxIDAtLjM5LjM5LS4zOSAxLjAyIDAgMS40MUwxMC41OSAxMiA1LjcgMTYuODljLS4zOS4zOS0uMzkgMS4wMiAwIDEuNDEuMzkuMzkgMS4wMi4zOSAxLjQxIDBMMTIgMTMuNDFsNC44OSA0Ljg5Yy4zOS4zOSAxLjAyLjM5IDEuNDEgMCAuMzktLjM5LjM5LTEuMDIgMC0xLjQxTDEzLjQxIDEybDQuODktNC44OWMuMzgtLjM4LjM4LTEuMDIgMC0xLjR6Ii8+PC9zdmc+')
+    }
 
-        .df-modal-visible {
-            animation: .25s show ease;
-        }
+    .df-btn-content {
+        display: block;
+        border: 0;
+        height: ${config.height || '500px'};
+        width: ${config.width || '320px'};
+        transition: all .25s ease;
+        float: right;
+        opacity: 1
+    }
 
-        .df-modal-hidden {
-            animation: .25s hide forwards;
-        }
+    .df-btn:not(.df-closed) > .df-btn-content {
+        padding-bottom: 16px;
+    }
 
-        .df-modal-reset {
-            display: none;
-        }
+    .df-closed > .df-btn-content {
+        width: 0;
+        height: 0;
+        opacity: 0
+    }
 
+    @media screen and (max-width: 720px){
         .df-btn {
-            margin-top: 24px;
-            float: right;
-            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
-            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 0;
-            letter-spacing: .25px;
-            align-items: center;
-            background-color: #fff;
-            background-image: none;
             border-radius: 28px;
-            color: #3c4043;
-            display: inline-flex;
-            font-weight: 500;
-            height: 56px;
-            min-width: 56px;
+        }
+
+        .df-btn:not(.df-closed) {
+            margin: 0px;
+            border-radius: 0px
+        }
+
+        .df-btn:not(.df-closed) > .df-btn-content {
+            width: 100vw;
+            height: calc(100vh - 48px);
+            padding-bottom: 0px
+        }
+
+        .df-btn-text {
             padding: 0;
-            cursor: pointer;
-            transition: all .08s linear
+            height: 56px;
+            font-size: 0;
+        }
+    }
+
+    @media (prefers-color-scheme: dark){
+        .df-btn {
+            background-color: #121212
         }
 
-        .df-btn:hover, .df-expanded {
-            padding: 0 24px 0 0;
-            height: 48px;
-            font-size: .875rem;
-            border-radius: 24px;
-            box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149)
+        .df-btn-text {
+            color: white
         }
 
-        .df-btn:before {
-            min-width: 56px;
-            height: 48px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: 24px;
-            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjVweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMjUgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU1LjEgKDc4MTM2KSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5wYXRoLTE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjMuNzkzMjMwOCw2LjIyMjc2OTIzIEwxMy41MTM4NDYyLDAuMjkwNDYxNTM4IEMxMi44NDkyMzA4LC0wLjA5MzUzODQ2MTUgMTIuMDIyMTUzOCwtMC4wOTM1Mzg0NjE1IDExLjM1NzUzODUsMC4yOTA0NjE1MzggTDEuMDc4MTUzODUsNi4yMjI3NjkyMyBDMC40MTM1Mzg0NjIsNi42MTE2OTIzMSAwLjAwNDkyMzA3NjkyLDcuMzIwNjE1MzggMC4wMDQ5MjMwNzY5Miw4LjA5MzUzODQ2IEwwLjAwNDkyMzA3NjkyLDE5Ljk2OCBDMC4wMDQ5MjMwNzY5MiwyMC43MzYgMC40MTM1Mzg0NjIsMjEuNDQ0OTIzMSAxLjA3ODE1Mzg1LDIxLjgzMzg0NjIgTDYuMjIyNzY5MjMsMjQuODA3Mzg0NiBMNi4yMjI3NjkyMywzMC44Njc2OTIzIEM2LjIyMjc2OTIzLDMxLjIyNzA3NjkgNi41MTMyMzA3NywzMS41MTI2MTU0IDYuODcyNjE1MzgsMzEuNTEyNjE1NCBDNi45ODU4NDYxNSwzMS41MTI2MTU0IDcuMDk0MTUzODUsMzEuNDgzMDc2OSA3LjE5MjYxNTM4LDMxLjQyNCBMMjMuODA4LDIxLjgzODc2OTIgQzI0LjQ3MjYxNTQsMjEuNDU0NzY5MiAyNC44ODYxNTM4LDIwLjc0NTg0NjIgMjQuODgxMzE2OSwxOS45NzI5MjMxIEwyNC44ODEzMTY5LDguMDkzNTM4NDYgQzI0Ljg3NjMwNzcsNy4zMTU2OTIzMSAyNC40NjI3NjkyLDYuNjA2NzY5MjMgMjMuNzkzMjMwOCw2LjIyMjc2OTIzIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJsb2dvIj4KICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8dXNlIGlkPSJwYXRoLTEiIGZpbGw9IiMwMDAwMDAiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+');
-            content: ''
+        .df-btn-text:before {
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjVweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMjUgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU1LjEgKDc4MTM2KSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5wYXRoLTE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjMuNzkzMjMwOCw2LjIyMjc2OTIzIEwxMy41MTM4NDYyLDAuMjkwNDYxNTM4IEMxMi44NDkyMzA4LC0wLjA5MzUzODQ2MTUgMTIuMDIyMTUzOCwtMC4wOTM1Mzg0NjE1IDExLjM1NzUzODUsMC4yOTA0NjE1MzggTDEuMDc4MTUzODUsNi4yMjI3NjkyMyBDMC40MTM1Mzg0NjIsNi42MTE2OTIzMSAwLjAwNDkyMzA3NjkyLDcuMzIwNjE1MzggMC4wMDQ5MjMwNzY5Miw4LjA5MzUzODQ2IEwwLjAwNDkyMzA3NjkyLDE5Ljk2OCBDMC4wMDQ5MjMwNzY5MiwyMC43MzYgMC40MTM1Mzg0NjIsMjEuNDQ0OTIzMSAxLjA3ODE1Mzg1LDIxLjgzMzg0NjIgTDYuMjIyNzY5MjMsMjQuODA3Mzg0NiBMNi4yMjI3NjkyMywzMC44Njc2OTIzIEM2LjIyMjc2OTIzLDMxLjIyNzA3NjkgNi41MTMyMzA3NywzMS41MTI2MTU0IDYuODcyNjE1MzgsMzEuNTEyNjE1NCBDNi45ODU4NDYxNSwzMS41MTI2MTU0IDcuMDk0MTUzODUsMzEuNDgzMDc2OSA3LjE5MjYxNTM4LDMxLjQyNCBMMjMuODA4LDIxLjgzODc2OTIgQzI0LjQ3MjYxNTQsMjEuNDU0NzY5MiAyNC44ODYxNTM4LDIwLjc0NTg0NjIgMjQuODgxMzE2OSwxOS45NzI5MjMxIEwyNC44ODEzMTY5LDguMDkzNTM4NDYgQzI0Ljg3NjMwNzcsNy4zMTU2OTIzMSAyNC40NjI3NjkyLDYuNjA2NzY5MjMgMjMuNzkzMjMwOCw2LjIyMjc2OTIzIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJsb2dvIj4KICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8dXNlIGlkPSJwYXRoLTEiIGZpbGw9IiNGRkZGRkYiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+')
         }
 
-        .df-btn:active {
-            opacity: .6
+        .df-btn:not(.df-closed) > .df-btn-text:before {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTguMyA1LjcxYy0uMzktLjM5LTEuMDItLjM5LTEuNDEgMEwxMiAxMC41OSA3LjExIDUuN2MtLjM5LS4zOS0xLjAyLS4zOS0xLjQxIDAtLjM5LjM5LS4zOSAxLjAyIDAgMS40MUwxMC41OSAxMiA1LjcgMTYuODljLS4zOS4zOS0uMzkgMS4wMiAwIDEuNDEuMzkuMzkgMS4wMi4zOSAxLjQxIDBMMTIgMTMuNDFsNC44OSA0Ljg5Yy4zOS4zOSAxLjAyLjM5IDEuNDEgMCAuMzktLjM5LjM5LTEuMDIgMC0xLjQxTDEzLjQxIDEybDQuODktNC44OWMuMzgtLjM4LjM4LTEuMDIgMC0xLjR6Ii8+PC9zdmc+')
         }
+    }`
 
-        .df-btn-close:before {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTguMyA1LjcxYy0uMzktLjM5LTEuMDItLjM5LTEuNDEgMEwxMiAxMC41OSA3LjExIDUuN2MtLjM5LS4zOS0xLjAyLS4zOS0xLjQxIDAtLjM5LjM5LS4zOSAxLjAyIDAgMS40MUwxMC41OSAxMiA1LjcgMTYuODljLS4zOS4zOS0uMzkgMS4wMiAwIDEuNDEuMzkuMzkgMS4wMi4zOSAxLjQxIDBMMTIgMTMuNDFsNC44OSA0Ljg5Yy4zOS4zOSAxLjAyLjM5IDEuNDEgMCAuMzktLjM5LjM5LTEuMDIgMC0xLjQxTDEzLjQxIDEybDQuODktNC44OWMuMzgtLjM4LjM4LTEuMDIgMC0xLjR6Ii8+PC9zdmc+')
-        }
+    document.head.appendChild(style)
+    document.write(`
+        <div class="df-btn df-closed" onclick="dfToggle()">
+            <div class="df-btn-text">${config.openText || 'Chat'}</div>
+            <iframe class="df-btn-content" src="https://${config.project}.ui.dialogflow.cloud.ushakov.co"></iframe>
+        </div>
+    `)
 
-        @media (prefers-color-scheme: dark){
-            .df-modal {
-                background-color: #121212
-            }
-        }
-        </style>
-        <script>
-        let dfToggled = false
-        let dfToggle = () => {
-            document.querySelector('.df-modal').classList = dfToggled ? 'df-modal df-modal-hidden' : 'df-modal df-modal-visible'
-            document.querySelector('.df-btn').classList = dfToggled ? 'df-btn' : 'df-btn df-expanded df-btn-close'
-            document.querySelector('.df-btn').innerText = dfToggled ? '${config.openText || 'Chat'}' : '${config.closeText || 'Close'}'
-            dfToggled = !dfToggled
-        }
-        </script>
-    `
-    document.write(element)
+    let dfToggled = false
+    window.dfToggle = () => {
+        document.querySelector('.df-btn').classList = dfToggled ? 'df-btn df-closed' : 'df-btn'
+        document.querySelector('.df-btn-text').innerText = dfToggled ? (config.openText || 'Chat') : (config.closeText || 'Close')
+        dfToggled = !dfToggled
+    }
 }

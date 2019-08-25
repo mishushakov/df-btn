@@ -1,6 +1,6 @@
 # DF Button
 
-![Dialogflow on any Website](https://i.imgur.com/1Rzgibt.gif)
+![Dialogflow on any website](https://i.imgur.com/1Rzgibt.gif)
 
 Add your Dialogflow Agent / Actions on Google to any website!
 
@@ -9,10 +9,18 @@ Add your Dialogflow Agent / Actions on Google to any website!
 - Powered by open-source project ([Dialogflow for Web](https://github.com/mishushakov/dialogflow-web-v2))
 - Free & open-source (licensed under MIT)
 
+**New in this version**
+
+![Dialogflow Floating Chat](https://i.imgur.com/TlYPGF5.gif)
+
+- 🎉 Dark mode
+- 🎉 Updated UI for mobile and accessibility
+- 🎉 Better code and overall perfomance (60 FPS)
+
 ## Installation
 
 1. Link your agent to [Dialogflow Gateway Hosted](http://dialogflow.cloud.ushakov.co)
-2. Add the script in your HTML:
+2. Add the script in your HTML (also see [example.html](./example.html)):
 
 ```html
 <script
@@ -30,8 +38,8 @@ Add your Dialogflow Agent / Actions on Google to any website!
 
 ```
 project - your project id on Dialogflow Gateway Hosted
-width - modal width
-height - modal height
+width - modal width (100% on mobile)
+height - modal height (100% on mobile)
 openText - button text to open chat
 closeText - button text to close chat
 ```
