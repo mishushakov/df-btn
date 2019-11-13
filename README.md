@@ -11,14 +11,6 @@ Add your Dialogflow Agent / Actions on Google to any website!
 
 See a [demo](https://mishushakov.github.io/df-btn)
 
-**New in this version**
-
-![Dialogflow Floating Chat](https://i.imgur.com/TlYPGF5.gif)
-
-- 🎉 Dark mode
-- 🎉 Updated UI for mobile and accessibility
-- 🎉 Better code and overall perfomance (60 FPS)
-
 ## Installation
 
 1. Link your agent to [Dialogflow Gateway Hosted](http://dialogflow.cloud.ushakov.co)

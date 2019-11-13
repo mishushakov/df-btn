@@ -15,6 +15,8 @@ else {
     const style = document.createElement('style')
     style.innerHTML = `
     .df-btn {
+        padding: 0;
+        border: none;
         box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
         font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         background-color: #fff;
@@ -128,10 +130,10 @@ else {
 
     document.head.appendChild(style)
     document.write(`
-        <div class="df-btn df-closed" onclick="dfToggle()">
+        <button class="df-btn df-closed" onclick="dfToggle()">
             <div class="df-btn-text">${config.openText || 'Chat'}</div>
             <iframe class="df-btn-content" src="https://${config.project}.ui.dialogflow.cloud.ushakov.co"></iframe>
-        </div>
+        </button>
     `)
 
     let dfToggled = false
