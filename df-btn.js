@@ -4,7 +4,9 @@ const config = {
     width: wrapper.getAttribute('width'),
     height: wrapper.getAttribute('height'),
     openText: wrapper.getAttribute('openText'),
-    closeText: wrapper.getAttribute('closeText')
+    closeText: wrapper.getAttribute('closeText'),
+    logo: wrapper.getAttribute('logo'),
+    logoDark: wrapper.getAttribute('logoDark')
 }
 
 if (!config.project){
@@ -51,7 +53,7 @@ else {
         background-position: center;
         background-repeat: no-repeat;
         background-size: 24px;
-        background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjVweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMjUgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU1LjEgKDc4MTM2KSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5wYXRoLTE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjMuNzkzMjMwOCw2LjIyMjc2OTIzIEwxMy41MTM4NDYyLDAuMjkwNDYxNTM4IEMxMi44NDkyMzA4LC0wLjA5MzUzODQ2MTUgMTIuMDIyMTUzOCwtMC4wOTM1Mzg0NjE1IDExLjM1NzUzODUsMC4yOTA0NjE1MzggTDEuMDc4MTUzODUsNi4yMjI3NjkyMyBDMC40MTM1Mzg0NjIsNi42MTE2OTIzMSAwLjAwNDkyMzA3NjkyLDcuMzIwNjE1MzggMC4wMDQ5MjMwNzY5Miw4LjA5MzUzODQ2IEwwLjAwNDkyMzA3NjkyLDE5Ljk2OCBDMC4wMDQ5MjMwNzY5MiwyMC43MzYgMC40MTM1Mzg0NjIsMjEuNDQ0OTIzMSAxLjA3ODE1Mzg1LDIxLjgzMzg0NjIgTDYuMjIyNzY5MjMsMjQuODA3Mzg0NiBMNi4yMjI3NjkyMywzMC44Njc2OTIzIEM2LjIyMjc2OTIzLDMxLjIyNzA3NjkgNi41MTMyMzA3NywzMS41MTI2MTU0IDYuODcyNjE1MzgsMzEuNTEyNjE1NCBDNi45ODU4NDYxNSwzMS41MTI2MTU0IDcuMDk0MTUzODUsMzEuNDgzMDc2OSA3LjE5MjYxNTM4LDMxLjQyNCBMMjMuODA4LDIxLjgzODc2OTIgQzI0LjQ3MjYxNTQsMjEuNDU0NzY5MiAyNC44ODYxNTM4LDIwLjc0NTg0NjIgMjQuODgxMzE2OSwxOS45NzI5MjMxIEwyNC44ODEzMTY5LDguMDkzNTM4NDYgQzI0Ljg3NjMwNzcsNy4zMTU2OTIzMSAyNC40NjI3NjkyLDYuNjA2NzY5MjMgMjMuNzkzMjMwOCw2LjIyMjc2OTIzIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJsb2dvIj4KICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8dXNlIGlkPSJwYXRoLTEiIGZpbGw9IiMwMDAwMDAiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+');
+        background-image: url('${config.logo || 'assets/logo.svg'}');
         content: ''
     }
 
@@ -64,7 +66,7 @@ else {
     }
 
     .df-btn:not(.df-closed) > .df-btn-text:before {
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTguMyA1LjcxYy0uMzktLjM5LTEuMDItLjM5LTEuNDEgMEwxMiAxMC41OSA3LjExIDUuN2MtLjM5LS4zOS0xLjAyLS4zOS0xLjQxIDAtLjM5LjM5LS4zOSAxLjAyIDAgMS40MUwxMC41OSAxMiA1LjcgMTYuODljLS4zOS4zOS0uMzkgMS4wMiAwIDEuNDEuMzkuMzkgMS4wMi4zOSAxLjQxIDBMMTIgMTMuNDFsNC44OSA0Ljg5Yy4zOS4zOSAxLjAyLjM5IDEuNDEgMCAuMzktLjM5LjM5LTEuMDIgMC0xLjQxTDEzLjQxIDEybDQuODktNC44OWMuMzgtLjM4LjM4LTEuMDIgMC0xLjR6Ii8+PC9zdmc+')
+        background-image: url('assets/close.svg')
     }
 
     .df-btn-content {
@@ -112,7 +114,7 @@ else {
 
     @media (prefers-color-scheme: dark){
         .df-btn {
-            background-color: #121212
+            background-color: #202124
         }
 
         .df-btn-text {
@@ -120,11 +122,11 @@ else {
         }
 
         .df-btn-text:before {
-            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjVweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMjUgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU1LjEgKDc4MTM2KSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5wYXRoLTE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjMuNzkzMjMwOCw2LjIyMjc2OTIzIEwxMy41MTM4NDYyLDAuMjkwNDYxNTM4IEMxMi44NDkyMzA4LC0wLjA5MzUzODQ2MTUgMTIuMDIyMTUzOCwtMC4wOTM1Mzg0NjE1IDExLjM1NzUzODUsMC4yOTA0NjE1MzggTDEuMDc4MTUzODUsNi4yMjI3NjkyMyBDMC40MTM1Mzg0NjIsNi42MTE2OTIzMSAwLjAwNDkyMzA3NjkyLDcuMzIwNjE1MzggMC4wMDQ5MjMwNzY5Miw4LjA5MzUzODQ2IEwwLjAwNDkyMzA3NjkyLDE5Ljk2OCBDMC4wMDQ5MjMwNzY5MiwyMC43MzYgMC40MTM1Mzg0NjIsMjEuNDQ0OTIzMSAxLjA3ODE1Mzg1LDIxLjgzMzg0NjIgTDYuMjIyNzY5MjMsMjQuODA3Mzg0NiBMNi4yMjI3NjkyMywzMC44Njc2OTIzIEM2LjIyMjc2OTIzLDMxLjIyNzA3NjkgNi41MTMyMzA3NywzMS41MTI2MTU0IDYuODcyNjE1MzgsMzEuNTEyNjE1NCBDNi45ODU4NDYxNSwzMS41MTI2MTU0IDcuMDk0MTUzODUsMzEuNDgzMDc2OSA3LjE5MjYxNTM4LDMxLjQyNCBMMjMuODA4LDIxLjgzODc2OTIgQzI0LjQ3MjYxNTQsMjEuNDU0NzY5MiAyNC44ODYxNTM4LDIwLjc0NTg0NjIgMjQuODgxMzE2OSwxOS45NzI5MjMxIEwyNC44ODEzMTY5LDguMDkzNTM4NDYgQzI0Ljg3NjMwNzcsNy4zMTU2OTIzMSAyNC40NjI3NjkyLDYuNjA2NzY5MjMgMjMuNzkzMjMwOCw2LjIyMjc2OTIzIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJsb2dvIj4KICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8dXNlIGlkPSJwYXRoLTEiIGZpbGw9IiNGRkZGRkYiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+')
+            background-image: url('${config.logoDark || 'assets/logo_dark.svg'}')
         }
 
         .df-btn:not(.df-closed) > .df-btn-text:before {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTguMyA1LjcxYy0uMzktLjM5LTEuMDItLjM5LTEuNDEgMEwxMiAxMC41OSA3LjExIDUuN2MtLjM5LS4zOS0xLjAyLS4zOS0xLjQxIDAtLjM5LjM5LS4zOSAxLjAyIDAgMS40MUwxMC41OSAxMiA1LjcgMTYuODljLS4zOS4zOS0uMzkgMS4wMiAwIDEuNDEuMzkuMzkgMS4wMi4zOSAxLjQxIDBMMTIgMTMuNDFsNC44OSA0Ljg5Yy4zOS4zOSAxLjAyLjM5IDEuNDEgMCAuMzktLjM5LjM5LTEuMDIgMC0xLjQxTDEzLjQxIDEybDQuODktNC44OWMuMzgtLjM4LjM4LTEuMDIgMC0xLjR6Ii8+PC9zdmc+')
+            background-image: url('assets/close_dark.svg')
         }
     }`
 
@@ -132,7 +134,7 @@ else {
     document.write(`
         <button class="df-btn df-closed" onclick="dfToggle()">
             <div class="df-btn-text">${config.openText || 'Chat'}</div>
-            <iframe class="df-btn-content" src="https://${config.project}.ui.dialogflow.cloud.ushakov.co" allow="microphone *"></iframe>
+            <iframe class="df-btn-content" src="https://${config.project}.web.ushaflow.com" allow="microphone *"></iframe>
         </button>
     `)
 

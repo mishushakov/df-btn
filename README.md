@@ -36,8 +36,8 @@ width - modal width (100% on mobile)
 height - modal height (100% on mobile)
 openText - button text to open chat
 closeText - button text to close chat
+logo - custom logotype
+logoDark - custom logotype (in dark)
 ```
 
 4. (Optionally) grab the source code and make it truly yours!
-
-Thank you!
