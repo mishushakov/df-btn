@@ -1,5 +1,6 @@
 const wrapper = document.querySelector('#df-btn')
 const config = {
+    src: wrapper.getAttribute('src'),
     project: wrapper.getAttribute('project'),
     width: wrapper.getAttribute('width'),
     height: wrapper.getAttribute('height'),
@@ -8,6 +9,8 @@ const config = {
     logo: wrapper.getAttribute('logo'),
     logoDark: wrapper.getAttribute('logoDark')
 }
+
+const origin = config.src.substring(0, config.src.lastIndexOf('/'))
 
 if (!config.project){
     console.warn('Please specify your project ID in attributes!')
@@ -53,7 +56,7 @@ else {
         background-position: center;
         background-repeat: no-repeat;
         background-size: 24px;
-        background-image: url('${config.logo || 'assets/logo.svg'}');
+        background-image: url('${config.logo || origin + '/assets/logo.svg'}');
         content: ''
     }
 
@@ -66,7 +69,7 @@ else {
     }
 
     .df-btn:not(.df-closed) > .df-btn-text:before {
-        background-image: url('assets/close.svg')
+        background-image: url('${origin}/assets/close.svg')
     }
 
     .df-btn-content {
@@ -122,11 +125,11 @@ else {
         }
 
         .df-btn-text:before {
-            background-image: url('${config.logoDark || 'assets/logo_dark.svg'}')
+            background-image: url('${config.logoDark || origin + '/assets/logo_dark.svg'}')
         }
 
         .df-btn:not(.df-closed) > .df-btn-text:before {
-            background-image: url('assets/close_dark.svg')
+            background-image: url('${origin}/assets/close_dark.svg')
         }
     }`
 
