@@ -24,10 +24,10 @@ else {
         border: none;
         box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
         font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: #fff;
+        background-color: #FEFFFF;
         border-radius: 24px;
         cursor: pointer;
-        transition: all .08s linear;
+        transition: all .45s cubic-bezier(.4, 0, .2, 1);
         position: fixed;
         bottom: 0px;
         right: 0px;
@@ -43,8 +43,6 @@ else {
         display: inline-flex;
         align-items: center;
         font-weight: 500;
-        letter-spacing: .25px;
-        transition: all .08s linear;
         padding: 0 24px 0 0;
         font-size: .875rem;
         height: 48px
@@ -75,9 +73,10 @@ else {
     .df-btn-content {
         display: block;
         border: 0;
-        height: ${config.height || '500px'};
-        width: ${config.width || '320px'};
-        transition: all .25s ease;
+        height: calc(85% - 56px);
+        max-height: ${config.height || '600px'};
+        width: ${config.width || '400px'};
+        transition: all .45s cubic-bezier(.4, 0, .2, 1);
         float: right;
         opacity: 1
     }
@@ -89,6 +88,7 @@ else {
     .df-closed > .df-btn-content {
         width: 0;
         height: 0;
+        max-height: 0;
         opacity: 0
     }
 
@@ -104,6 +104,7 @@ else {
 
         .df-btn:not(.df-closed) > .df-btn-content {
             width: 100vw;
+            max-height: 100vh;
             height: calc(100vh - 56px);
             padding-bottom: 0px
         }
@@ -117,7 +118,7 @@ else {
 
     @media (prefers-color-scheme: dark){
         .df-btn {
-            background-color: #202124
+            background-color: #171717
         }
 
         .df-btn-text {
