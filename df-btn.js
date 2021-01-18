@@ -6,6 +6,8 @@ const config = {
     height: wrapper.getAttribute('height'),
     openText: wrapper.getAttribute('openText'),
     closeText: wrapper.getAttribute('closeText'),
+    background: wrapper.getAttribute('background'),
+    backgroundDark: wrapper.getAttribute('backgroundDark'),
     logo: wrapper.getAttribute('logo'),
     logoDark: wrapper.getAttribute('logoDark')
 }
@@ -24,7 +26,7 @@ else {
         border: none;
         box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
         font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: #FEFFFF;
+        background-color: ${config.background || '#FEFFFF'};
         border-radius: 24px;
         cursor: pointer;
         transition: all .45s cubic-bezier(.4, 0, .2, 1);
@@ -73,8 +75,7 @@ else {
     .df-btn-content {
         display: block;
         border: 0;
-        height: calc(85% - 56px);
-        max-height: ${config.height || '600px'};
+        height: ${config.height || '600px'};
         width: ${config.width || '400px'};
         transition: all .45s cubic-bezier(.4, 0, .2, 1);
         float: right;
@@ -88,7 +89,6 @@ else {
     .df-closed > .df-btn-content {
         width: 0;
         height: 0;
-        max-height: 0;
         opacity: 0
     }
 
@@ -118,7 +118,7 @@ else {
 
     @media (prefers-color-scheme: dark){
         .df-btn {
-            background-color: #171717
+            background-color: ${config.backgroundDark || '#171717'}
         }
 
         .df-btn-text {
@@ -138,7 +138,7 @@ else {
     document.write(`
         <button class="df-btn df-closed" onclick="dfToggle()">
             <div class="df-btn-text">${config.openText || 'Chat'}</div>
-            <iframe class="df-btn-content" src="https://${config.project}.web.ushaflow.com" allow="microphone *"></iframe>
+            <iframe class="df-btn-content" src="https://${config.project}.web.ushaflow.io" allow="microphone *"></iframe>
         </button>
     `)
 

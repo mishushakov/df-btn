@@ -21,10 +21,14 @@ See a [demo](https://mishushakov.github.io/df-btn)
     src="https://cdn.jsdelivr.net/gh/mishushakov/df-btn/df-btn.min.js"
     id="df-btn"
     project="dialogflow-web-v2"
-    width="320px"
-    height="500px"
+    width="400px"
+    height="600px"
     openText="Chat"
-    closeText="Close">
+    closeText="Close"
+    logo="assets/logo.svg"
+    background="#FEFFFF"
+    backgroundDark="#171717"
+    logoDark="assets/logo_dark.svg">
 </script>
 ```
 
@@ -36,6 +40,8 @@ width - modal width (100% on mobile)
 height - modal height (100% on mobile)
 openText - button text to open chat
 closeText - button text to close chat
+background - background color
+backgroundDark - background color (in dark)
 logo - custom logotype
 logoDark - custom logotype (in dark)
 ```
